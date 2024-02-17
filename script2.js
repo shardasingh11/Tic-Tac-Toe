@@ -16,12 +16,9 @@ for (let i = 0; i < btn.length; i++) {
             value = "X";
         }
         emptyarr[index] = e.target.innerText;
-        a += 1;
+
 
         result = checkWinnwer();
-        if (a >= 3 && result) {
-            console.log("Winner: ", result);
-        }
     });
 }
 

@@ -1,14 +1,22 @@
-let btn = document.querySelectorAll("button");
+let btn = document.querySelectorAll(".box");
+let Reset = document.querySelector(".reset");
+let innerContainer = document.querySelector(".container");
+let declarewin = document.createElement("h2");
+console.log(Reset);
+
+
+
+
 console.log(btn);
 let value ="X";
 let emptyarr = [];
-let a=0;
-let result;
-for(let i=0; i<btn.length; i++){ 
-    
-    btn[i].addEventListener("click",(e)=>{
-        // console.log(e.target);
-        let index = Array.from(btn).indexOf(e.target);
+let result=null;
+let temp=0;
+
+starterCode();
+
+function clickHandler(e){
+    let index = Array.from(btn).indexOf(e.target);
         e.target.innerText = value;
        
         if(value === "X"){  
@@ -17,23 +25,43 @@ for(let i=0; i<btn.length; i++){
             value = "X";
         }
         emptyarr[index]=e.target.innerText;
-        a+=1;
+        temp++;
 
         result =  checkWinnwer();
-        if(a>=3 && result){
-            console.log(result, "wins!");
-            btn.forEach(button.removeEventListener()) 
-    
+        if(result){
+           
+            declarewin.innerText = `${result } is Winner!`;
+            document.querySelector(".row1").before(declarewin);
 
-            
-        }  
-    })
+            console.log(result, "is Winner!!");
+            btn.forEach(button => button.removeEventListener('click', clickHandler));
+        
+        }
+        else if(temp==9 && (result==null || result == false)){
+            // console.log("No one is winner!!");
+            declarewin.innerText = `No one is Winner!`;
+            document.querySelector(".row1").before(declarewin);
+        }
        
-    if(result){
-        break;
-    }
-
+          
 }
+
+
+//  Execution start from here
+// for(let i=0; i<btn.length; i++){ 
+        
+//     btn[i].addEventListener("click",clickHandler);
+// }
+function starterCode(){
+    for(let i=0; i<btn.length; i++){ 
+        
+        btn[i].addEventListener("click",clickHandler);
+        // console.log(i);
+    }
+}
+
+//    check winner
+
 function checkWinnwer(){
     let winner = false;
     if((emptyarr[0]==emptyarr[1]) && (emptyarr[1]==emptyarr[2]) ||
@@ -64,3 +92,25 @@ function checkWinnwer(){
 // }
 
 
+    //   Reset the tic tac toe
+    Reset.addEventListener("click",()=>{
+        innerContainer.removeChild(declarewin);
+        console.log(emptyarr);
+        for(let buttons of btn){
+            // console.log(btn);
+            buttons.innerText='';
+            // console.log(emp);
+            emptyarr = [];
+        }
+        console.log(emptyarr);
+        
+        // Reset.innerText="Reset";
+         value ="X";
+        //  let emptyarr = [];
+         result=null;
+         temp=0;
+        starterCode();
+    }); 
+
+
+ 
